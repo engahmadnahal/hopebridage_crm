@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'DIN Next LT Arabic Medium';
+    font-style: Medium;
+    font-weight: 400;
+    src: url('DIN_NEXT_ARABIC_MEDIUM.otf') format('opentype')
+}
+@font-face {
+    font-family: 'DIN Next LT Arabic Regular';
+    font-style: Regular;
+    font-weight: 400;
+    src: url('DIN_NEXT_ARABIC_REGULAR.otf') format('opentype')
+}
+
+span, h1, h2, h3, h4, h5, h6, div, b, strong, p, section, ul, li,label,th,tr,td,select,option {
+    /*font-family:'DIN Next LT Arabic Regular' !important; ;*/
+    font-family: 'DIN Next LT Arabic Regular' !important;
+
+}
+

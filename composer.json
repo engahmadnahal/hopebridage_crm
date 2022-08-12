@@ -1,0 +1,92 @@
+{
+    "name": "bottelet/daybyday-crm",
+    "description": "DaybydayCRM is a free, open-source and self-hosted CRM platform based of Laravel",
+    "keywords": [
+        "laravel",
+        "CRM",
+        "customer management",
+        "Lead management",
+        "customer relationship management"
+    ],
+    "authors": [
+        {
+            "name": "Casper Bottelet",
+            "email": "cbottelet@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "^7.3|^8.0",
+        "amrshawky/laravel-currency": "^5.0",
+        "aws/aws-sdk-php": "^3.112",
+        "cviebrock/laravel-elasticsearch": "^9.0",
+        "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.2",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/cashier": "^13.14",
+        "laravel/framework": "^8.75",
+        "laravel/helpers": "^1.1",
+        "laravel/passport": "^10.3",
+        "laravel/sanctum": "^2.11",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.0",
+        "laravelcollective/html": "^6.3",
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "league/flysystem-cached-adapter": "~1.0",
+        "mews/purifier": "^3.1",
+        "predis/predis": "^2.0",
+        "pulkitjalan/google-apiclient": "^6.0",
+        "ramsey/uuid": "^4.3",
+        "spatie/dropbox-api": "^1.19",
+        "yajra/laravel-datatables-oracle": "~9.0"
+    },
+    "require-dev": {
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5.10"
+    },
+   
+    "autoload": {
+        "files": [
+            "app/helpers.php"
+        ],
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+        ]
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ],
+        "post-install-cmd": [
+            "php artisan route:cache"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
