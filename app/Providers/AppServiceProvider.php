@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\ClientHeaderComposer;
 use App\Models\Integration;
 use App\Models\Client;
 use App\Models\Invoice;
@@ -14,6 +15,7 @@ use App\Observers\LeadObserver;
 use App\Observers\ProjectObserver;
 use App\Observers\InvoiceObserver;
 use App\Repositories\Format\GetDateFormat;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -33,6 +35,12 @@ class AppServiceProvider extends ServiceProvider
         Lead::observe(LeadObserver::class);
         Project::observe(ProjectObserver::class);
         Invoice::observe(InvoiceObserver::class);
+
+        /// Set This Varible For Global
+
+        // View::composer('',ClientHeaderComposer::class);
+
+        View::share('',ClientHeaderComposer::class);
     }
 
     /**
