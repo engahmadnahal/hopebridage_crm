@@ -15,6 +15,7 @@ class ClientHeaderComposer
      */
     public function compose(View $view)
     {
+        // dd('view composer');
         $clients = Client::findOrFail($view->getData()['client']['id']);
 
         $contact_info = $clients->contacts()->first();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Budget;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Status;
@@ -17,6 +18,7 @@ use App\Models\Task;
 use Ramsey\Uuid\Uuid;
 use App\Repositories\FilesystemIntegration\FilesystemIntegration;
 use Yajra\DataTables\Facades\DataTables;
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 class ProjectsController extends Controller
 {
@@ -66,18 +68,18 @@ class ProjectsController extends Controller
             ->editColumn('user_assigned_id', function ($projects) {
                 return $projects->assignee->name;
             })
-            // ->editColumn('status_id', function ($projects) {
-            //     return '<span class="label label-success" style="background-color:' .
-            //         $projects->status->color .
-            //         '"> ' .
-            //         $projects->status->title .
-            //         '</span>';
-            // })
             ->editColumn('status_id', function ($projects) {
-                return '<span class="label label-success" style="background-color:
-                    "> 
-                    </span>';
+                return '<span class="label label-success" style="background-color:' .
+                    $projects->status->color .
+                    '"> ' .
+                    $projects->status->title .
+                    '</span>';
             })
+            // ->editColumn('status_id', function ($projects) {
+            //     return '<span class="label label-success" style="background-color:
+            //         "> 
+            //         </span>';
+            // })
             ->addColumn('view', function ($projects) {
                 return '<a href="' .
                     route('projects.show', $projects->external_id) .
@@ -127,10 +129,12 @@ class ProjectsController extends Controller
         }
 
         if (!$client) {
+
             Session()->flash('flash_message', __('Could not find donor'));
             return redirect()->back();
         }
 
+        
         $project = Project::create([
             'title' => $request->title,
             'description' => clean($request->description),
@@ -140,13 +144,17 @@ class ProjectsController extends Controller
             'startDate' => Carbon::parse($request->startDate),
             'endDate' => Carbon::parse($request->endDate),
             'user_created_id' => auth()->id(),
+            'status_id'=> $request->status_id,
             'external_id' => Uuid::uuid4()->toString(),
 
         ]);
 
+
+      
         $insertedExternalId = $project->external_id;
 
         Session()->flash('flash_message', __('Project successfully added'));
+
         event(new \App\Events\ProjectAction($project, self::CREATED));
 
         if (!is_null($request->images)) {
@@ -160,8 +168,12 @@ class ProjectsController extends Controller
 //            'project_external_id' => $project->external_id,
 //        ]);
 
-        return redirect()->route('projects.budget');
+        // return redirect()->route('projects.budget');
+        // dd(redirect()->route('projects.budget', $project->external_id));
+
         // return redirect()->route('projects.budget', $project->external_id);
+
+        return response()->json(['project_external_id'=>$project->external_id]);
     }
 
     private function upload($image, $project)

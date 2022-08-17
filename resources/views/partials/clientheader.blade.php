@@ -1,3 +1,4 @@
+{{-- {{dd($contact_info)}} --}}
 <div class="col-md-6">
     <div class="panel panel-primary contact-header-box">
         <div class="panel-body">

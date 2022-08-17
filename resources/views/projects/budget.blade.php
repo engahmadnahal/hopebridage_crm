@@ -34,6 +34,17 @@
                                     <input type="number" name="unit_price" id="unit_price" class="form-control">
                                 </div>
                             </div>
+
+                            {{-- <div class="col-lg-6 col-6">
+                                <div class="form-group">
+                                    <label for="notes" class="control-label thin-weight">@lang('Project Id')</label>
+                                    <select name="project_id" id="project_id" class="form-control">
+                                        @foreach ($projects as $project)
+                                            <option value="{{$project->id}}">{{$project->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div> --}}
                         </div>
                         {{ csrf_field() }}
                         <div class="form-group">

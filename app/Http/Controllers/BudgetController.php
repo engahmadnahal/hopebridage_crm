@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Budget;
 use Illuminate\Http\Request;
 use AmrShawky\LaravelCurrency\Facade\Currency;
-
+use App\Models\Project;
 
 class BudgetController extends Controller
 {
@@ -17,19 +17,20 @@ class BudgetController extends Controller
     public function index(Request $request)
     {
 
-        $budgets = Budget::get();
+        $budgets = Budget::all();
         $converted=Currency::convert()
             ->from('EUR') //currncy you are converting
             ->to('USD')     // currency you are converting to
             ->amount(1) // amount in USD you converting to EUR
             ->get();
 
+            // $projects = Project::all();
+
        return view('projects.budget'  ,[
               'budgets' => $budgets,
               'converted' =>  $converted ,
-
-       ]
-       );
+            //   'projects' => $projects
+       ]);
 
     }
 
@@ -72,14 +73,15 @@ class BudgetController extends Controller
                 'unit' => 'required',
                 'number_unit' => 'required',
                 'unit_price' => 'required',
-                'project_id' => 'required',
+                // 'project_id' => 'required',
             ]);
-        $budgets = Budget::create([
+
+        Budget::create([
             'item_line' => $request->input('item_line'),
             'unit' => $request->input('unit'),
             'number_unit' => $request->input('number_unit'),
             'unit_price' => $request->input('unit_price'),
-            'project_id' => $request->input('project_id'),
+            // 'project_id' => $request->input('project_id'),
 
         ]);
 

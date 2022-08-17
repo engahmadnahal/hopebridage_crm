@@ -52,6 +52,15 @@
                             <input type="text" id="endDate" name="endDate" class="form-control">
                         </div>
 
+                        <div class="form-group">
+                            <label for="status_id" class="control-label thin-weight">@lang('Status')</label>
+                            <select name="status_id" id="status" class="form-control">
+                                @foreach ($statuses as $status => $statusK)
+                                    <option value="{{ $status }}">{{ $statusK }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         {{ csrf_field() }}
                         <div class="form-group">
                             <input type="submit" class="btn btn-md btn-brand movedown" id="createProject"
@@ -145,6 +154,9 @@
                 $('input[type="submit"]').attr("disabled", false);
                 });
             @endif
+
+            // -------- End IF Can upload File -------
+
             $('input[type="submit"]').on("click", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -152,11 +164,14 @@
                     myDropzone.processQueue();
 
                 } else {
+                    console.log($("#createProjectForm").serialize());
                     $.ajax({
                         type: 'post',
                         url: '{{ route('projects.store') }}',
+                        header : {'Content-Type' : 'application/json'},
                         data: $("#createProjectForm").serialize(),
                         success: function(response) {
+
                             window.location.href = ("/projects/" + response.project_external_id)
                         },
                         error: function(jqXHR, textStatus, errorThrown) {

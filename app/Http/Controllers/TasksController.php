@@ -247,6 +247,7 @@ class TasksController extends Controller
 
     private function upload($image, $task)
     {
+
         if (
             !auth()
                 ->user()

@@ -214,6 +214,7 @@ Route::group(['middleware' => ['auth']], function () {
             'projects.index.data'
         );
         Route::view('/gantt', 'projects.gantt')->name('projects.gantt');
+        
         Route::get('/budget', 'BudgetController@index')->name('projects.budget');
 
         Route::patch(

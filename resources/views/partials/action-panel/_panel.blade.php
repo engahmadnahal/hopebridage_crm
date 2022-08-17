@@ -5,7 +5,7 @@
             <li role="presentation" class="active">
                 <a href="#notifications" class="action-panel-header__nav-link" aria-controls="home" role="tab" data-toggle="tab">{{__('Notifications')}}</a>
             </li>
-            <li role="presentation">z
+            <li role="presentation">
                 <a href="#actions" class="action-panel-header__nav-link" aria-controls="profile" role="tab" data-toggle="tab">{{__('Actions')}}</a>
             </li>
         </ul>
